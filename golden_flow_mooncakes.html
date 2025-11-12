@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoldenFlow - Premium Salted Egg Lava Pies</title>
+    <link href=" https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Comic+Neue:wght@400;700&display=swap " rel="stylesheet">
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary-gold: #FFA726;
+            --deep-orange: #E65100;
+            --cream-white: #FFF8F0;
+            --dark-brown: #5D4037;
+            --light-gold: #FFE0B2;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Neue', cursive;
+        }
+        
+        body {
+            background-color: var(--cream-white);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Cherry Bomb One', cursive;
+            color: var(--deep-orange);
+        }
+        
+        /* 页面切换样式 */
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* 头部导航样式 */
+        header {
+            background-color: var(--deep-orange);
+            color: #fff;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--primary-gold);
+            font-family: 'Cherry Bomb One', cursive;
+        }
+        
+        .logo span {
+            color: #fff;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 18px;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-gold);
+        }
+        
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--primary-gold);
+            color: var(--deep-orange);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        /* 主页英雄区域样式 */
+        .hero {
+            background: linear-gradient(rgba(230, 81, 0, 0.8), rgba(230, 81, 0, 0.8)), url(' https://images.unsplash.com/photo-1567113463307-33f5c3c38623?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            color: #fff;
+            padding: 120px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 52px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            color: var(--primary-gold);
+        }
+        
+        .hero p {
+            font-size: 22px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-weight: bold;
+        }
+        
+        .slogan {
+            font-size: 28px;
+            font-style: italic;
+            margin: 20px 0;
+            color: var(--light-gold);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-gold);
+            color: var(--deep-orange);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-family: 'Cherry Bomb One', cursive;
+        }
+        
+        .btn:hover {
+            background-color: var(--light-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* 产品展示区域样式 */
+        .products-section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--deep-orange);
+            font-size: 42px;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-gold);
+            margin: 15px auto 0;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .product-image {
+            height: 200px;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-info h3 {
+            margin-bottom: 10px;
+            color: var(--deep-orange);
+        }
+        
+        .product-info p {
+            margin-bottom: 15px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .product-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--deep-orange);
+            margin-bottom: 15px;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-view {
+            flex: 2;
+            padding: 10px;
+            background-color: var(--deep-orange);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+        
+        .btn-cart {
+            flex: 1;
+            padding: 10px;
+            background-color: var(--primary-gold);
+            color: var(--deep-orange);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+        
+        .btn-view:hover {
+            background-color: #BF360C;
+        }
+        
+        .btn-cart:hover {
+            background-color: var(--light-gold);
+        }
+        
+        /* 产品详情页样式 */
+        .product-detail {
+            padding: 40px 0;
+        }
+        
+        .detail-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .product-gallery {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .main-image {
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .main-image img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .thumbnail-container {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        
+        .thumbnail.active {
+            opacity: 1;
+            border: 2px solid var(--primary-gold);
+        }
+        
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-info-detail {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .product-info-detail h1 {
+            font-size: 32px;
+            color: var(--deep-orange);
+            margin-bottom: 15px;
+        }
+        
+        .product-info-detail .price {
+            font-size: 28px;
+            color: var(--primary-gold);
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .product-info-detail .description {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .product-features {
+            margin-bottom: 20px;
+        }
+        
+        .feature-item {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-icon {
+            color: var(--primary-gold);
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .ingredients, .flavor-profile, .origin {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: rgba(255, 167, 38, 0.1);
+            border-radius: 5px;
+        }
+        
+        .ingredients h3, .flavor-profile h3, .origin h3 {
+            margin-bottom: 10px;
+            color: var(--deep-orange);
+        }
+        
+        .ingredients ul {
+            list-style-type: none;
+        }
+        
+        .ingredients li {
+            margin-bottom: 5px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .ingredients li:before {
+            content: "•";
+            color: var(--primary-gold);
+            position: absolute;
+            left: 0;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .quantity-selector button {
+            width: 40px;
+            height: 40px;
+            background-color: #f0f0f0;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        
+        .quantity-selector input {
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            border: 1px solid #ddd;
+            margin: 0 10px;
+            border-radius: 5px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn-add-cart {
+            background-color: var(--deep-orange);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            flex: 2;
+            font-family: 'Cherry Bomb One', cursive;
+            font-size: 16px;
+        }
+        
+        .btn-buy-now {
+            background-color: var(--primary-gold);
+            color: var(--deep-orange);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            flex: 1;
+            font-family: 'Cherry Bomb One', cursive;
+            font-size: 16px;
+        }
+        
+        .btn-back {
+            background-color: #f0f0f0;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* 购物车模态框样式 */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .cart-content {
+            background-color: #fff;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+            padding: 30px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .cart-items {
+            margin-bottom: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .item-details {
+            display: flex;
+            align-items: center;
+        }
+        
+        .item-image {
+            width: 60px;
+            height: 60px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            margin-right: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .item-info h4 {
+            margin-bottom: 5px;
+        }
+        
+        .item-controls {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            background-color: #f5f5f5;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .item-quantity {
+            margin: 0 10px;
+            font-weight: bold;
+        }
+        
+        .item-price {
+            font-weight: bold;
+            color: var(--deep-orange);
+            min-width: 80px;
+            text-align: right;
+        }
+        
+        .remove-item {
+            background: none;
+            border: none;
+            color: #ff6b6b;
+            cursor: pointer;
+            margin-left: 15px;
+        }
+        
+        .cart-summary {
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-gold);
+            color: var(--deep-orange);
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-family: 'Cherry Bomb One', cursive;
+        }
+        
+        .checkout-btn:hover {
+            background-color: var(--light-gold);
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 40px 0;
+            color: #666;
+        }
+        
+        /* 付款页面样式 */
+        .checkout-page {
+            padding: 40px 0;
+        }
+        
+        .checkout-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .payment-option {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-option.active {
+            border-color: var(--primary-gold);
+            background-color: rgba(255, 167, 38, 0.1);
+        }
+        
+        .payment-option img {
+            max-width: 80px;
+            height: auto;
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background-color: var(--deep-orange);
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: var(--primary-gold);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: var(--primary-gold);
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 0 10px 10px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .detail-container {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Golden<span>Flow</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-link" data-page="home">Home</a></li>
+                        <li><a href="#" class="nav-link" data-page="products">Products</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li class="cart-icon" id="cartIcon">
+                            <i class="fas fa-shopping-cart"></i> Cart <span class="cart-count">0</span>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主页内容 -->
+    <section class="page active" id="home">
+        <div class="hero">
+            <div class="container">
+                <h1>Melt-in-Your-Mouth Salted Egg Lava Pies</h1>
+                <p class="slogan">"Golden Flow, Heavenly Taste - Experience the Ultimate Fusion of East and West!"</p>
+                <p>Indulge in our exquisite salted egg lava pies with rich, flowing custard centers that create an unforgettable taste sensation.</p>
+                <a href="#" class="btn nav-link" data-page="products">Discover Our Pies</a>
+            </div>
+        </div>
+
+        <section class="products-section">
+            <div class="container">
+                <h2 class="section-title">Our Signature Collection</h2>
+                <div class="products-grid" id="productsGrid">
+                    <!-- 产品将通过JavaScript动态加载 -->
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- 产品详情页 -->
+    <section class="page" id="productDetail">
+        <div class="product-detail">
+            <div class="container">
+                <button class="btn-back" id="backToProducts">
+                    <i class="fas fa-arrow-left"></i> Back to Products
+                </button>
+                <div class="detail-container" id="detailContainer">
+                    <!-- 产品详情内容将通过JavaScript动态加载 -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 购物车模态框 -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Your Shopping Cart</h2>
+                <button class="close-cart" id="closeCart">×</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- 购物车商品将通过JavaScript动态添加 -->
+            </div>
+            <div class="cart-summary">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                <button class="checkout-btn" id="proceedToCheckout">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 付款页面 -->
+    <section class="page" id="checkoutPage">
+        <div class="checkout-page">
+            <div class="container">
+                <button class="btn-back" id="backToCart">
+                    <i class="fas fa-arrow-left"></i> Back to Cart
+                </button>
+                <div class="checkout-form">
+                    <h2>Checkout</h2>
+                    <form id="checkoutForm">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Shipping Address</label>
+                            <input type="text" id="address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="zipCode">ZIP Code</label>
+                            <input type="text" id="zipCode" required>
+                        </div>
+                        
+                        <h3>Payment Method</h3>
+                        <div class="payment-methods">
+                            <div class="payment-option" data-method="visa">
+                                <img src=" https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg " alt="VISA">
+                                <p>VISA</p>
+                            </div>
+                            <div class="payment-option" data-method="applepay">
+                                <img src=" https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg " alt="Apple Pay">
+                                <p>Apple Pay</p>
+                            </div>
+                        </div>
+                        
+                        <div id="cardDetails" class="form-group" style="display: none;">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
+                            
+                            <div style="display: flex; gap: 15px;">
+                                <div style="flex: 1;">
+                                    <label for="expiryDate">Expiry Date</label>
+                                    <input type="text" id="expiryDate" placeholder="MM/YY">
+                                </div>
+                                <div style="flex: 1;">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" placeholder="123">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn" style="width: 100%; padding: 15px; margin-top: 20px;">Complete Order</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>GoldenFlow Delights</h3>
+                    <p>Premium artisan pies crafted with traditional techniques and the finest ingredients. Our salted egg lava pies bring a taste of luxury to every bite.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#" class="nav-link" data-page="home">Home</a></li>
+                        <li><a href="#" class="nav-link" data-page="products">Products</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>Email: info@goldenflow.com</li>
+                        <li>Phone: +1 (800) 123-4567</li>
+                        <li>Address: 123 Gourmet Ave, San Francisco, CA</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 GoldenFlow Delights. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 产品数据
+        const products = [
+            {
+                id: 1,
+                name: "Classic Salted Egg Lava Pie",
+                price: 18.99,
+                images: [
+                    " https://images.unsplash.com/photo-1567113463307-33f5c3c38623?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80 ",
+                    " https://images.unsplash.com/photo-1634041641652-4d177b3b78b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80 ",
+                    " https://images.unsplash.com/photo-16340416cedfdfc82d7d8c79b9cef6a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80 "
+                ],
+                description: "Our signature pie with rich, flowing salted egg custard center that melts in your mouth. Each bite delivers the perfect balance of sweet and savory flavors with a golden, flaky crust.",
+                ingredients: ["Premium wheat flour", "Fresh salted duck eggs", "European butter", "Fresh milk", "Custard powder", "Sugar", "Vanilla extract"],
+                origin: "Handcrafted in our San Francisco bakery using traditional techniques combined with modern innovation.",
+                flavorProfile: "Rich and creamy with a perfect balance of sweet and savory. The salted egg custard flows smoothly with a luxurious texture that contrasts beautifully with the flaky pastry.",
+                features: [
+                    "Flowing salted egg custard center",
+                    "Golden flaky crust",
+                    "Handcrafted with premium ingredients",
+                    "Perfect balance of sweet and savory"
+                ]
+            },
+            {
+                id: 2,
+                name: "Double Yolk Lava Pie",
+                price: 22.99,
+                images: [
+                    " https://images.unsplash.com/photo-1634041641652-4d177b3b78b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80 ",
+                    " https://images.unsplash.com/photo-1567113463307-33f5c3c38623?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80 ",
+                    " https://images.unsplash.com/photo-16340416cedfdfc82d7d8c79b9cef6a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80 "
+                ],
+                description: "Indulge in our premium double yolk lava pie with an extra rich custard center. The double yolk enhances the flavor profile for an even more luxurious experience.",
+                ingredients: ["Premium wheat flour", "Double salted duck egg yolks", "European butter", "Fresh cream", "Custard powder", "Sugar", "Vanilla extract"],
+                origin: "Crafted in our San Francisco bakery with eggs sourced from local free-range farms.",
+                flavorProfile: "Extra rich and savory with a pronounced salted egg flavor. The double yolk creates a denser, more luxurious custard that flows beautifully when warmed.",
+                features: [
+                    "Double salted egg yolk custard",
+                    "Extra rich and savory flavor",
+                    "Luxurious dense texture",
+                    "Enhanced golden crust"
+                ]
+            },
+            {
+                id: 3,
+                name: "Matcha Salted Egg Lava Pie",
+                price: 20.99,
+                images: [
+                    " https://images.unsplash.com/photo-16340416cedfdfc82d7d8c79b9cef6a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80 ",
+                    " https://images.unsplash.com/photo-1634041641652-4d177b3b78b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80 ",
+                    " https://images.unsplash.com/photo-1567113463307-33f5c3c38623?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80 "
+                ],
+                description: "A unique fusion of Japanese matcha and traditional salted egg custard. The earthy matcha perfectly complements the rich savory custard for a sophisticated flavor experience.",
+                ingredients: ["Premium wheat flour", "Uji matcha powder", "Salted duck eggs", "European butter", "Fresh milk", "Custard powder", "Sugar"],
+                origin: "Inspired by Japanese tea ceremonies and crafted in our California bakery.",
+                flavorProfile: "Earthy matcha balanced with rich salted egg custard. The slightly bitter matcha contrasts beautifully with the sweet and savory custard for a complex flavor profile.",
+                features: [
+                    "Premium Uji matcha infusion",
+                    "Unique East-meets-West flavor",
+                    "Beautiful green and golden appearance",
+                    "Sophisticated taste profile"
+                ]
+            },
+            {
+                id: 4,
+                name: "Chocolate Salted Egg Lava Pie",
+                price: 19.99,
+                images: [
+                    " https://images.unsplash.com/photo-1567113463307-33f5c3c38623?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80 ",
+                    " https://images.unsplash.com/photo-16340416cedfdfc82d7d8c79b9cef6a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80 ",
+                    " https://images.unsplash.com/photo-1634041641652-4d177b3b78b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80 "
+                ],
+                description: "A decadent combination of rich dark chocolate and savory salted egg custard. This innovative creation will delight chocolate lovers and adventurous foodies alike.",
+                ingredients: ["Premium wheat flour", "Dark chocolate (70% cocoa)", "Salted duck eggs", "European butter", "Fresh cream", "Custard powder", "Sugar"],
+                origin: "Created by our master pastry chefs in San Francisco experimenting with flavor combinations.",
+                flavorProfile: "Rich dark chocolate harmonizes with savory salted egg custard. The bitterness of dark chocolate balances the sweetness and creates a sophisticated flavor experience.",
+                features: [
+                    "Premium dark chocolate infusion",
+                    "Innovative flavor combination",
+                    "Rich and decadent experience",
+                    "Beautiful marbled appearance"
+                ]
+            }
+        ];
+
+        // 购物车功能实现
+        document.addEventListener('DOMContentLoaded', function() {
+            const cartIcon = document.getElementById('cartIcon');
+            const cartModal = document.getElementById('cartModal');
+            const closeCart = document.getElementById('closeCart');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            const cartCount = document.querySelector('.cart-count');
+            const productsGrid = document.getElementById('productsGrid');
+            const homePage = document.getElementById('home');
+            const productDetailPage = document.getElementById('productDetail');
+            const checkoutPage = document.getElementById('checkoutPage');
+            const detailContainer = document.getElementById('detailContainer');
+            const backToProducts = document.getElementById('backToProducts');
+            const backToCart = document.getElementById('backToCart');
+            const proceedToCheckout = document.getElementById('proceedToCheckout');
+            const checkoutForm = document.getElementById('checkoutForm');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const paymentOptions = document.querySelectorAll('.payment-option');
+            
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let selectedPaymentMethod = '';
+            
+            // 页面导航
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    
+                    if (pageId === 'home') {
+                        showPage(homePage);
+                    } else if (pageId === 'products') {
+                        showPage(homePage);
+                        // 滚动到产品区域
+                        window.scrollTo({
+                            top: document.querySelector('.products-section').offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            backToProducts.addEventListener('click', function() {
+                showPage(homePage);
+            });
+            
+            backToCart.addEventListener('click', function() {
+                showPage(homePage);
+                cartModal.style.display = 'flex';
+            });
+            
+            proceedToCheckout.addEventListener('click', function() {
+                if (cart.length === 0) {
+                    alert('Your cart is empty. Please add some items before checkout.');
+                    return;
+                }
+                showPage(checkoutPage);
+                cartModal.style.display = 'none';
+            });
+            
+            function showPage(page) {
+                document.querySelectorAll('.page').forEach(p => {
+                    p.classList.remove('active');
+                });
+                page.classList.add('active');
+            }
+            
+            // 支付方式选择
+            paymentOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    paymentOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    selectedPaymentMethod = this.getAttribute('data-method');
+                    
+                    const cardDetails = document.getElementById('cardDetails');
+                    if (selectedPaymentMethod === 'visa') {
+                        cardDetails.style.display = 'block';
+                    } else {
+                        cardDetails.style.display = 'none';
+                    }
+                });
+            });
+            
+            // 表单提交
+            checkoutForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (cart.length === 0) {
+                    alert('Your cart is empty. Please add some items before checkout.');
+                    return;
+                }
+                
+                if (!selectedPaymentMethod) {
+                    alert('Please select a payment method.');
+                    return;
+                }
+                
+                if (selectedPaymentMethod === 'visa') {
+                    const cardNumber = document.getElementById('cardNumber').value;
+                    const expiryDate = document.getElementById('expiryDate').value;
+                    const cvv = document.getElementById('cvv').value;
+                    
+                    if (!cardNumber || !expiryDate || !cvv) {
+                        alert('Please fill in all card details.');
+                        return;
+                    }
+                }
+                
+                // 模拟支付处理
+                alert('Thank you for your order! Your payment is being processed.');
+                
+                // 清空购物车
+                cart = [];
+                updateCart();
+                renderCart();
+                
+                // 返回主页
+                showPage(homePage);
+            });
+            
+            // 渲染产品列表
+            function renderProducts() {
+                productsGrid.innerHTML = '';
+                
+                products.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    productCard.innerHTML = `
+                        <div class="product-image">
+                            <img src="${product.images[0]}" alt="${product.name}">
+                        </div>
+                        <div class="product-info">
+                            <h3>${product.name}</h3>
+                            <p>${product.description.substring(0, 100)}...</p>
+                            <div class="product-price">$${product.price.toFixed(2)}</div>
+                            <div class="product-actions">
+                                <button class="btn-view" data-id="${product.id}">View Details</button>
+                                <button class="btn-cart" data-id="${product.id}">Add to Cart</button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    productsGrid.appendChild(productCard);
+                });
+                
+                // 添加事件监听器
+                document.querySelectorAll('.btn-view').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        showProductDetail(id);
+                    });
+                });
+                
+                document.querySelectorAll('.btn-cart').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        addToCart(id);
+                    });
+                });
+            }
+            
+            // 显示产品详情
+            function showProductDetail(id) {
+                const product = products.find(p => p.id === id);
+                if (!product) return;
+                
+                showPage(productDetailPage);
+                
+                detailContainer.innerHTML = `
+                    <div class="product-gallery">
+                        <div class="main-image">
+                            <img src="${product.images[0]}" alt="${product.name}" id="mainImage">
+                        </div>
+                        <div class="thumbnail-container">
+                            ${product.images.map((img, index) => `
+                                <div class="thumbnail ${index === 0 ? 'active' : ''}" data-image="${img}">
+                                    <img src="${img}" alt="${product.name}">
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="product-info-detail">
+                        <h1>${product.name}</h1>
+                        <div class="price">$${product.price.toFixed(2)}</div>
+                        <div class="description">
+                            <p>${product.description}</p>
+                        </div>
+                        <div class="product-features">
+                            ${product.features.map(feature => `
+                                <div class="feature-item">
+                                    <span class="feature-icon">★</span>
+                                    <span>${feature}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="ingredients">
+                            <h3>Ingredients</h3>
+                            <ul>
+                                ${product.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+                            </ul>
+                        </div>
+                        <div class="origin">
+                            <h3>Origin & Craftsmanship</h3>
+                            <p>${product.origin}</p>
+                        </div>
+                        <div class="flavor-profile">
+                            <h3>Flavor Profile</h3>
+                            <p>${product.flavorProfile}</p>
+                        </div>
+                        <div class="quantity-selector">
+                            <label for="quantity">Quantity:</label>
+                            <button id="decreaseQty">-</button>
+                            <input type="number" id="quantity" value="1" min="1">
+                            <button id="increaseQty">+</button>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn-add-cart" data-id="${product.id}">Add to Cart</button>
+                            <button class="btn-buy-now" data-id="${product.id}">Buy Now</button>
+                        </div>
+                    </div>
+                `;
+                
+                // 添加详情页事件监听器
+                document.querySelectorAll('.thumbnail').forEach(thumb => {
+                    thumb.addEventListener('click', function() {
+                        document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                        this.classList.add('active');
+                        document.getElementById('mainImage').src = this.getAttribute('data-image');
+                    });
+                });
+                
+                document.getElementById('decreaseQty').addEventListener('click', function() {
+                    const quantityInput = document.getElementById('quantity');
+                    if (quantityInput.value > 1) {
+                        quantityInput.value = parseInt(quantityInput.value) - 1;
+                    }
+                });
+                
+                document.getElementById('increaseQty').addEventListener('click', function() {
+                    const quantityInput = document.getElementById('quantity');
+                    quantityInput.value = parseInt(quantityInput.value) + 1;
+                });
+                
+                document.querySelector('.btn-add-cart').addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const quantity = parseInt(document.getElementById('quantity').value);
+                    addToCart(id, quantity);
+                });
+                
+                document.querySelector('.btn-buy-now').addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const quantity = parseInt(document.getElementById('quantity').value);
+                    addToCart(id, quantity);
+                    cartModal.style.display = 'flex';
+                });
+            }
+            
+            // 添加商品到购物车
+            function addToCart(id, quantity = 1) {
+                const product = products.find(p => p.id === id);
+                if (!product) return;
+                
+                const existingItem = cart.find(item => item.id === id);
+                
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                } else {
+                    cart.push({
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        image: product.images[0],
+                        quantity: quantity
+                    });
+                }
+                
+                updateCart();
+                showAddedToCartMessage(product.name);
+            }
+            
+            // 更新购物车显示
+            function updateCart() {
+                cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+                
+                // 保存到本地存储
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+            
+            // 显示添加成功消息
+            function showAddedToCartMessage(productName) {
+                // 创建临时提示消息
+                const message = document.createElement('div');
+                message.textContent = `${productName} has been added to your cart!`;
+                message.style.position = 'fixed';
+                message.style.top = '20px';
+                message.style.right = '20px';
+                message.style.backgroundColor = 'var(--primary-gold)';
+                message.style.color = 'var(--deep-orange)';
+                message.style.padding = '10px 20px';
+                message.style.borderRadius = '5px';
+                message.style.zIndex = '1001';
+                message.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+                message.style.fontWeight = 'bold';
+                
+                document.body.appendChild(message);
+                
+                // 3秒后移除消息
+                setTimeout(() => {
+                    if (document.body.contains(message)) {
+                        document.body.removeChild(message);
+                    }
+                }, 3000);
+            }
+            
+            // 渲染购物车内容
+            function renderCart() {
+                if (cart.length === 0) {
+                    cartItems.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
+                    cartTotal.textContent = '$0.00';
+                    return;
+                }
+                
+                cartItems.innerHTML = '';
+                let total = 0;
+                
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    
+                    const cartItemElement = document.createElement('div');
+                    cartItemElement.className = 'cart-item';
+                    cartItemElement.innerHTML = `
+                        <div class="item-details">
+                            <div class="item-image">
+                                <img src="${item.image}" alt="${item.name}">
+                            </div>
+                            <div class="item-info">
+                                <h4>${item.name}</h4>
+                                <p>$${item.price.toFixed(2)} each</p>
+                            </div>
+                        </div>
+                        <div class="item-controls">
+                            <button class="quantity-btn decrease" data-id="${item.id}">-</button>
+                            <span class="item-quantity">${item.quantity}</span>
+                            <button class="quantity-btn increase" data-id="${item.id}">+</button>
+                            <span class="item-price">$${itemTotal.toFixed(2)}</span>
+                            <button class="remove-item" data-id="${item.id}">Remove</button>
+                        </div>
+                    `;
+                    
+                    cartItems.appendChild(cartItemElement);
+                });
+                
+                cartTotal.textContent = `$${total.toFixed(2)}`;
+                
+                // 添加购物车事件监听器
+                document.querySelectorAll('.decrease').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        updateQuantity(id, -1);
+                    });
+                });
+                
+                document.querySelectorAll('.increase').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        updateQuantity(id, 1);
+                    });
+                });
+                
+                document.querySelectorAll('.remove-item').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        removeItem(id);
+                    });
+                });
+            }
+            
+            // 更新商品数量
+            function updateQuantity(id, change) {
+                const item = cart.find(item => item.id === id);
+                if (item) {
+                    item.quantity += change;
+                    
+                    if (item.quantity < 1) {
+                        removeItem(id);
+                    } else {
+                        updateCart();
+                        renderCart();
+                    }
+                }
+            }
+            
+            // 移除商品
+            function removeItem(id) {
+                cart = cart.filter(item => item.id !== id);
+                updateCart();
+                renderCart();
+            }
+            
+            // 打开购物车
+            cartIcon.addEventListener('click', function() {
+                renderCart();
+                cartModal.style.display = 'flex';
+            });
+            
+            // 关闭购物车
+            closeCart.addEventListener('click', function() {
+                cartModal.style.display = 'none';
+            });
+            
+            // 点击模态框外部关闭
+            cartModal.addEventListener('click', function(e) {
+                if (e.target === cartModal) {
+                    cartModal.style.display = 'none';
+                }
+            });
+            
+            // 初始化
+            renderProducts();
+            updateCart();
+        });
+    </script>
+</body>
+</html>
